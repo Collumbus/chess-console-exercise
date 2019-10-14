@@ -14,22 +14,36 @@ namespace xadrez_console
 
                 while (!match.finished)
                 {
-                    Console.Clear();
-                    Screen.printBoard(match.board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printBoard(match.board);
+                        Console.WriteLine();
+                        Console.WriteLine("Turn: " + match.turn);
+                        Console.WriteLine("Awaiting play: " + match.currentPlayer);
 
-                    Console.WriteLine();
-                    Console.Write("Origin: ");
-                    Position origin = Screen.readChessPosition().toPosition();
+                        Console.WriteLine();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.readChessPosition().toPosition();
+                        match.validateOriginPosition(origin);
 
-                    bool[,] possiblePositions = match.board.piece(origin).possibleMovements();
+                        bool[,] possiblePositions = match.board.piece(origin).possibleMovements();
 
-                    Console.Clear();
-                    Screen.printBoard(match.board, possiblePositions);
+                        Console.Clear();
+                        Screen.printBoard(match.board, possiblePositions);
 
-                    Console.Write("Destiny: ");
-                    Position destiny = Screen.readChessPosition().toPosition();
+                        Console.WriteLine();
+                        Console.Write("Destiny: ");
+                        Position destiny = Screen.readChessPosition().toPosition();
 
-                    match.executeMoviment(origin, destiny);
+                        match.validateDestinyPosition(origin, destiny);
+                        match.executePlay(origin, destiny);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
             }
             catch (BoardException e)

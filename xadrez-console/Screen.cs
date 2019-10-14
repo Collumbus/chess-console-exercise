@@ -63,7 +63,7 @@ namespace xadrez_console
             }
             else
             {
-                if (piece.color == Color.Whithe)
+                if (piece.color == Color.White)
                 {
                     Console.Write(piece);
                 }
