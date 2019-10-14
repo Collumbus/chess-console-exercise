@@ -9,6 +9,8 @@ namespace xadrez_console
         {
             Board board = new Board(8, 8);
             Console.WriteLine();
+
+            Screen.printScreen(board);
         }
     }
 }
