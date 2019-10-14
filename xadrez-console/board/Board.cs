@@ -2,7 +2,7 @@
 {
     class Board
     {
-        public int rows { get;  set; }
+        public int rows { get; set; }
         public int columns { get; set; }
         private Piece[,] pieces;
 
@@ -17,11 +17,42 @@
         {
             return pieces[row, column];
         }
+        public Piece piece(Position pos)
+        {
+            return pieces[pos.row, pos.column];
+        }
+
+        public bool thereIsPiece(Position pos)
+        {
+            validadePosition(pos);
+            return piece(pos) != null;
+        }
 
         public void putPiece(Piece p, Position pos)
         {
+            if (thereIsPiece(pos))
+            {
+                throw new BoardException("There is already a piece in this position");
+            }
             pieces[pos.row, pos.column] = p;
             p.position = pos;
+        }
+
+        public bool validPosition(Position pos)
+        {
+            if (pos.row < 0 || pos.row >= rows || pos.column < 0 || pos.column >= columns)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void validadePosition(Position pos)
+        {
+            if (!validPosition(pos))
+            {
+                throw new BoardException("Invalid Position!");
+            }
         }
     }
 }
