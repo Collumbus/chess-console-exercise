@@ -10,14 +10,21 @@ namespace xadrez_console
         {
             try
             {
-                Board board = new Board(8, 8);
-                Console.WriteLine();
-                board.putPiece(new Rook(board, Color.Black), new Position(0, 0));
-                board.putPiece(new Rook(board, Color.Black), new Position(1, 3));
-                board.putPiece(new King(board, Color.Black), new Position(0, 2));
+                ChessMatch match = new ChessMatch();
 
-                board.putPiece(new King(board, Color.Whithe), new Position(3, 5));
-                Screen.printScreen(board);
+                while (!match.finished)
+                {
+                    Console.Clear();
+                    Screen.printScreen(match.board);
+
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position origin = Screen.readChessPosition().toPosition();
+                    Console.Write("Destiny: ");
+                    Position destiny = Screen.readChessPosition().toPosition();
+
+                    match.executeMoviment(origin, destiny);
+                }
             }
             catch (BoardException e)
             {

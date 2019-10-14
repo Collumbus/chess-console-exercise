@@ -15,5 +15,10 @@
             this.qtyMovements = 0;
 
         }
+
+        public void incrementQtyMovement()
+        {
+            qtyMovements++;
+        }
     }
 }
