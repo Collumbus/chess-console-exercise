@@ -7,9 +7,9 @@
         public int qtyMovements { get; protected set; }
         public Board board { get; protected set; }
 
-        public Piece(Position position, Board board, Color color)
+        public Piece(Board board, Color color)
         {
-            this.position = position;
+            this.position = null;
             this.board = board;
             this.color = color;
             this.qtyMovements = 0;
