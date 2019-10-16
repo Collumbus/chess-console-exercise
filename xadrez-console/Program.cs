@@ -18,7 +18,6 @@ namespace xadrez_console
                     {
                         Console.Clear();
                         Screen.printMatch(match);
-
                         Console.WriteLine();
                         Console.Write("Origin: ");
                         Position origin = Screen.readChessPosition().toPosition();

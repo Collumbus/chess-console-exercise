@@ -15,6 +15,10 @@ namespace xadrez_console
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.turn);
             Console.WriteLine("Awaiting play: " + match.currentPlayer);
+            if (match.check)
+            {
+                Console.WriteLine("YOU ARE IN CHECK!");
+            }
         }
 
         public static void printCapturedPieces(ChessMatch match)
