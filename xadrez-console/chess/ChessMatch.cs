@@ -67,8 +67,16 @@ namespace chess
             {
                 check = false;
             }
-            turn++;
-            changePlayer();
+
+            if (checkMateTest(opponent(currentPlayer)))
+            {
+                finished = true;
+            }
+            else
+            {
+                turn++;
+                changePlayer();
+            }
         }
 
         public void validateOriginPosition(Position pos)
@@ -173,6 +181,37 @@ namespace chess
             {
 
             }
+        }
+
+        public bool checkMateTest(Color color)
+        {
+            if (!isInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece x in piecesInGame(color))
+            {
+                bool[,] mat = x.possibleMovements();
+                for(int i=0; i<board.rows; i++)
+                {
+                    for (int j = 0; j < board.columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position destiny = new Position(i, j);
+                            Piece capturedPiece = executeMoviment(origin, destiny);
+                            bool checkTest = isInCheck(color);
+                            undoMoviment(origin, destiny, capturedPiece);
+                            if (!checkTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void putNewPiece (char column, int row, Piece piece)

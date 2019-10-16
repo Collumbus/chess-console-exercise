@@ -15,9 +15,17 @@ namespace xadrez_console
             Console.WriteLine();
             Console.WriteLine("Turn: " + match.turn);
             Console.WriteLine("Awaiting play: " + match.currentPlayer);
-            if (match.check)
+            if (!match.finished)
             {
-                Console.WriteLine("YOU ARE IN CHECK!");
+                if (match.check)
+                {
+                    Console.WriteLine("YOU ARE IN CHECK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("CHECKMATE");
+                Console.WriteLine("Winner: " + match.currentPlayer);
             }
         }
 
