@@ -35,6 +35,27 @@ namespace chess
             {
                 captured.Add(capturedPiece);
             }
+
+            // #Special Move Little Castling
+            if(p is King && destiny.column == origin.column + 2)
+            {
+                Position rookOrigin = new Position(origin.row, origin.column + 3);
+                Position rookDestiny = new Position(origin.row, origin.column + 1);
+                Piece R = board.removePiece(rookOrigin);
+                R.incrementQtyMovement();
+                board.putPiece(R,rookDestiny);
+            }
+
+            // #Special Move Big Castling
+            if (p is King && destiny.column == origin.column - 2)
+            {
+                Position rookOrigin = new Position(origin.row, origin.column - 4);
+                Position rookDestiny = new Position(origin.row, origin.column - 1);
+                Piece R = board.removePiece(rookOrigin);
+                R.incrementQtyMovement();
+                board.putPiece(R, rookDestiny);
+            }
+
             return capturedPiece;
         }
 
@@ -48,6 +69,26 @@ namespace chess
                 captured.Remove(capturedPiece);
             }
             board.putPiece(p,origin);
+
+            // #Special Move Little Castling
+            if (p is King && destiny.column == origin.column + 2)
+            {
+                Position rookOrigin = new Position(origin.row, origin.column + 3);
+                Position rookDestiny = new Position(origin.row, origin.column + 1);
+                Piece R = board.removePiece(rookDestiny);
+                R.decrementQtyMovement();
+                board.putPiece(R, rookOrigin);
+            }
+
+            // #Special Move Big Castling
+            if (p is King && destiny.column == origin.column - 2)
+            {
+                Position rookOrigin = new Position(origin.row, origin.column - 4);
+                Position rookDestiny = new Position(origin.row, origin.column - 1);
+                Piece R = board.removePiece(rookDestiny);
+                R.decrementQtyMovement();
+                board.putPiece(R, rookOrigin);
+            }
         }
 
         public void executePlay(Position origin, Position destiny)
@@ -222,13 +263,13 @@ namespace chess
         private void putPieces()
         {
             putNewPiece('a', 1, new Rook(board, Color.White));
-            putNewPiece('b', 1, new Rook(board, Color.White));
-            putNewPiece('c', 1, new Rook(board, Color.White));
-            putNewPiece('d', 1, new Rook(board, Color.White));
-            putNewPiece('e', 1, new Rook(board, Color.White));
-            putNewPiece('f', 1, new King(board, Color.White));
-            putNewPiece('g', 1, new King(board, Color.White));
-            putNewPiece('h', 1, new King(board, Color.White));
+            putNewPiece('b', 1, new Knight(board, Color.White));
+            putNewPiece('c', 1, new Bishop(board, Color.White));
+            putNewPiece('d', 1, new Queen(board, Color.White));
+            putNewPiece('e', 1, new King(board, Color.White, this));
+            putNewPiece('f', 1, new Bishop(board, Color.White));
+            putNewPiece('g', 1, new Knight(board, Color.White));
+            putNewPiece('h', 1, new Rook(board, Color.White));
             putNewPiece('a', 2, new Pawn(board, Color.White));
             putNewPiece('b', 2, new Pawn(board, Color.White));
             putNewPiece('c', 2, new Pawn(board, Color.White));
@@ -239,13 +280,13 @@ namespace chess
             putNewPiece('h', 2, new Pawn(board, Color.White));
 
             putNewPiece('a', 8, new Rook(board, Color.Black));
-            putNewPiece('b', 8, new Rook(board, Color.Black));
-            putNewPiece('c', 8, new Rook(board, Color.Black));
-            putNewPiece('d', 8, new Rook(board, Color.Black));
-            putNewPiece('e', 8, new Rook(board, Color.Black));
-            putNewPiece('f', 8, new King(board, Color.Black));
-            putNewPiece('g', 8, new King(board, Color.Black));
-            putNewPiece('h', 8, new King(board, Color.Black));
+            putNewPiece('b', 8, new Knight(board, Color.Black));
+            putNewPiece('c', 8, new Bishop(board, Color.Black));
+            putNewPiece('d', 8, new Queen(board, Color.Black));
+            putNewPiece('e', 8, new King(board, Color.Black, this));
+            putNewPiece('f', 8, new Bishop(board, Color.Black));
+            putNewPiece('g', 8, new Knight(board, Color.Black));
+            putNewPiece('h', 8, new Rook(board, Color.Black));
             putNewPiece('a', 7, new Pawn(board, Color.Black));
             putNewPiece('b', 7, new Pawn(board, Color.Black));
             putNewPiece('c', 7, new Pawn(board, Color.Black));
