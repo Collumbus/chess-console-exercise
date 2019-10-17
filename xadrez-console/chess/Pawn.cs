@@ -39,7 +39,8 @@ namespace chess
                 }
 
                 pos.setValues(position.row - 2, position.column);
-                if (board.validPosition(pos) && movementFree(pos) && qtyMovements == 0)
+                Position p2 = new Position(position.row - 1, position.column);
+                if (board.validPosition(p2) && movementFree(p2) && board.validPosition(pos) && movementFree(pos) && qtyMovements == 0)
                 {
                     mat[pos.row, pos.column] = true;
                 }
@@ -80,7 +81,8 @@ namespace chess
                 }
 
                 pos.setValues(position.row + 2, position.column);
-                if (board.validPosition(pos) && movementFree(pos) && qtyMovements == 0)
+                Position p2 = new Position(position.row + 1, position.column);
+                if (board.validPosition(p2) && movementFree(p2) && board.validPosition(pos) && movementFree(pos) && qtyMovements == 0)
                 {
                     mat[pos.row, pos.column] = true;
                 }
